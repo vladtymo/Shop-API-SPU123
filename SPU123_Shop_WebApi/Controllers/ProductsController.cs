@@ -1,4 +1,6 @@
-﻿using Data;
+﻿using BussinessLogic.Dtos;
+using BussinessLogic.Interfaces;
+using Data;
 using Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +13,11 @@ namespace SPU123_Shop_WebApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly ShopDbContext context;
+        private readonly IProductsService productsService;
 
-        public ProductsController(ShopDbContext context)
+        public ProductsController(IProductsService productsService)
         {
-            this.context = context;
+            this.productsService = productsService;
         }
 
         [HttpGet]                       // GET: ~/api/products
@@ -24,40 +26,32 @@ namespace SPU123_Shop_WebApi.Controllers
         public async Task<IActionResult> Get()
         {
             // get all products 
-            return Ok(await context.Products.ToListAsync());
+            return Ok(await productsService.GetAll());
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(int id)
         {
-            // get product by ID
-            if (id < 0) return BadRequest();
-
-            var product = await context.Products.FindAsync(id);
-
-            if (product == null) return NotFound();
-
-            return Ok(product);
+            return Ok(await productsService.Get(id));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Product product)
+        public async Task<IActionResult> Create(ProductDto product)
         {
+            // TODO: move to the Logic layer
             if (!ModelState.IsValid) return BadRequest();
 
-            context.Products.Add(product);
-            await context.SaveChangesAsync();
+            await productsService.Create(product);
 
             return Ok();
         }
 
         [HttpPut]
-        public async Task<IActionResult> Edit(Product product)
+        public async Task<IActionResult> Edit(ProductDto product)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            context.Products.Update(product);
-            await context.SaveChangesAsync();
+            await productsService.Edit(product);
 
             return Ok();
         }
@@ -65,14 +59,7 @@ namespace SPU123_Shop_WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            if (id < 0) return BadRequest();
-
-            var product = await context.Products.FindAsync(id);
-
-            if (product == null) return NotFound();
-
-            context.Products.Remove(product);
-            await context.SaveChangesAsync();
+            await productsService.Delete(id);
 
             return Ok();
         }

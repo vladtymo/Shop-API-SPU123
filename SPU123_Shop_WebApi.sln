@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPU123_Shop_WebApi", "SPU12
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{20D3EDBF-A2B6-4C94-965A-F70BEA835E32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BussinessLogic", "BussinessLogic\BussinessLogic.csproj", "{05269119-7DDF-4E5A-893E-BC56D3D096F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{20D3EDBF-A2B6-4C94-965A-F70BEA835E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20D3EDBF-A2B6-4C94-965A-F70BEA835E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20D3EDBF-A2B6-4C94-965A-F70BEA835E32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05269119-7DDF-4E5A-893E-BC56D3D096F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05269119-7DDF-4E5A-893E-BC56D3D096F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05269119-7DDF-4E5A-893E-BC56D3D096F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05269119-7DDF-4E5A-893E-BC56D3D096F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,3 +1,5 @@
+using BussinessLogic.Interfaces;
+using BussinessLogic.Services;
 using Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +16,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ShopDbContext>(x => x.UseSqlServer(connStr));
+
+// add auto mapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+// configure custom services
+builder.Services.AddScoped<IProductsService, ProductsService>();
 
 var app = builder.Build();
 
