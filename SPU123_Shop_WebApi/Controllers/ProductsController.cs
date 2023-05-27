@@ -46,6 +46,14 @@ namespace SPU123_Shop_WebApi.Controllers
             return Ok();
         }
 
+        [HttpPost("test-create")]
+        public async Task<IActionResult> TestCreate([FromForm]TestCreateModel product)
+        {
+            // check product
+
+            return Ok();
+        }
+
         [HttpPut]
         public async Task<IActionResult> Edit(ProductDto product)
         {

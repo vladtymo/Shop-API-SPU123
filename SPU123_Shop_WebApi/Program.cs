@@ -38,6 +38,13 @@ app.UseHttpsRedirection();
 // create middleware
 app.UseMiddleware<ExceptionMiddleware>();
 
+app.UseCors(options =>
+{
+    options.AllowAnyHeader();
+    options.AllowAnyMethod();
+    options.AllowAnyOrigin();
+});
+
 app.UseAuthorization();
 
 app.MapControllers();
