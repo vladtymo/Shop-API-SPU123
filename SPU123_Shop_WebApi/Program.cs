@@ -2,10 +2,11 @@ using BussinessLogic.Interfaces;
 using BussinessLogic.Services;
 using Data;
 using Microsoft.EntityFrameworkCore;
+using SPU123_Shop_WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string connStr = builder.Configuration.GetConnectionString("LocalDb");
+string connStr = builder.Configuration.GetConnectionString("AzureDb");
 
 // Add services to the container.
 
@@ -33,6 +34,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// create middleware
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseAuthorization();
 

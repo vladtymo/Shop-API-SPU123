@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BussinessLogic.ApplicationExceptions;
 using BussinessLogic.Dtos;
 using BussinessLogic.Interfaces;
 using Data;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,11 +33,9 @@ namespace BussinessLogic.Services
         }
         public async Task<ProductDto?> Get(int id)
         {
-            if (id < 0) return null; // Bad Request: 400
+            if (id < 0) throw new HttpException("ID must be greater than 0!", HttpStatusCode.BadRequest); // Bad Request: 400
 
-            var product = await context.Products.FindAsync(id);
-
-            if (product == null) return null; // Not Found: 404
+            var product = await context.Products.FindAsync(id) ?? throw new HttpException("Product with your ID not found!", HttpStatusCode.NotFound);
 
             // convert to ProductDto
             //return new ProductDto()
@@ -70,7 +70,7 @@ namespace BussinessLogic.Services
         {
             var product = await this.Get(id);
 
-            if (product == null) return; // NotFound 404
+            if (product == null) throw new HttpException("Product with your ID not found!", HttpStatusCode.NotFound); // NotFound 404
 
             context.Products.Remove(mapper.Map<Product>(product));
             await context.SaveChangesAsync();
