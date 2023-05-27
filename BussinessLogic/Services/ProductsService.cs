@@ -33,7 +33,7 @@ namespace BussinessLogic.Services
         }
         public async Task<ProductDto?> Get(int id)
         {
-            if (id < 0) throw new HttpException("ID must be greater than 0!", HttpStatusCode.BadRequest); // Bad Request: 400
+            if (id < 0) throw new HttpException("ID must be greater or equals to 0!", HttpStatusCode.BadRequest); // Bad Request: 400
 
             var product = await context.Products.FindAsync(id) ?? throw new HttpException("Product with your ID not found!", HttpStatusCode.NotFound);
 
